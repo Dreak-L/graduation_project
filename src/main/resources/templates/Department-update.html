@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <div th:replace="common :: commonhead"/>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div th:replace="common :: commonstart"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="common :: commonleft"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row page-title">
+                    <div class="col-md-12">
+                        <h4 class="mb-1 mt-0">科室管理</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title mt-0">修改科室</h4>
+                                <p class="sub-header">
+                                    请输入科室信息更新！</p>
+
+                                <form class="form-horizontal" method="post" action="/updateDepart">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       >科室ID</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text"  class="form-control-plaintext" readonly
+                                                           id="example-static1" th:value="${departByid.id}" name="id">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="simpleinput">科室名称</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control" id="simpleinput"  name="departname"
+                                                           placeholder="请输入患者姓名" th:value="${departByid.departname}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">科室属于</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control custom-select"  name="departbelong">
+                                                        <option th:each="de:${departBelong}" th:text="${de.departbelongname}" th:value="${de.id}">男</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <!--<div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-textarea">科室简介</label>
+                                                <div class="col-lg-10">
+                                                            <textarea class="form-control" rows="5"
+                                                                      type="text"   id="example-textarea"  name="departdesc" placeholder="患者症状" th:text="${departByid.departdesc}"></textarea>
+                                                </div>
+                                            </div>-->
+
+
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group row" style="height: 100px">
+
+                                            </div>
+
+                                            <div class="form-group mb-0 justify-content-end row">
+                                                <div class="col-9">
+                                                    <button type="submit" style="width: 300px" class="btn btn-info">修改</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+
+
+        <!-- Footer Start -->
+        <div th:replace="common :: commonend"/>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+    <div class="rightbar-title">
+        <a href="javascript:void(0);" class="right-bar-toggle float-right">
+            <i data-feather="x-circle"></i>
+        </a>
+        <h5 class="m-0">Customization</h5>
+    </div>
+
+    <div class="slimscroll-menu">
+
+        <h5 class="font-size-16 pl-3 mt-4">Choose Variation</h5>
+        <div class="p-3">
+            <h6>Default</h6>
+            <a href="index.html"><img src="assets/images/layouts/vertical.jpg" alt="vertical" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Top Nav</h6>
+            <a href="layouts-horizontal.html"><img src="assets/images/layouts/horizontal.jpg" alt="horizontal" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Dark Side Nav</h6>
+            <a href="layouts-dark-sidebar.html"><img src="assets/images/layouts/vertical-dark-sidebar.jpg" alt="dark sidenav" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Condensed Side Nav</h6>
+            <a href="layouts-dark-sidebar.html"><img src="assets/images/layouts/vertical-condensed.jpg" alt="condensed" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Fixed Width (Boxed)</h6>
+            <a href="layouts-boxed.html"><img src="assets/images/layouts/boxed.jpg" alt="boxed"
+                                              class="img-thumbnail demo-img" /></a>
+        </div>
+    </div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+</body>
+</html>

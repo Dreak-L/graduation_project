@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <div th:replace="common :: commonhead"/>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div th:replace="common :: commonstart"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="common :: commonleft"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row page-title">
+                    <div class="col-md-12">
+                        <nav aria-label="breadcrumb" class="float-right mt-1">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Shreyu</a></li>
+                                <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Basic</li>
+                            </ol>
+                        </nav>
+                        <h4 class="mb-1 mt-0">人员管理</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title mt-0">修改人员消息</h4>
+                                <p class="sub-header">
+                                    请输入人员信息进行修改！</p>
+
+                                <form class="form-horizontal" method="post" action="/updateDoctorBydepart?" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                >医生ID</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text"  class="form-control-plaintext" readonly
+                                                           id="example-static1" th:value="${doctorByid.id}" name="id">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="simpleinput">医生姓名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control" id="simpleinput"  name="departname"
+                                                            th:value="${doctorByid.username}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">性别</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control custom-select"  name="userGender">
+                                                        <option value="0">女</option>
+                                                        <option value="1">男</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                >医生证件号</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text"  class="form-control-plaintext" readonly
+                                                            th:value="${doctorByid.userIdcard}" name="userIdcard">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">所属科室</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control custom-select"  name="userDepart">
+                                                        <option th:each="de:${department}" th:text="${de.departname}" th:selected="${de.id==doctorByid.userDepart}" th:value="${de.id}">男</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">状态</label>
+                                                <div class="col-lg-10">
+                                                    <select class="form-control custom-select"  name="userStateId">
+                                                        <option th:each="st:${allState}" th:text="${st.statename}" th:selected="${st.stateid==doctorByid.userStateId}" th:value="${st.stateid}">男</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-textarea">医生简介</label>
+                                                <div class="col-lg-10">
+                                                            <textarea class="form-control" rows="5"
+                                                                      id="example-textarea" name="userDesc" th:text="${doctorByid.userDesc}" placeholder="医生简介"></textarea>
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        <div class="col">
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-fileinput">文件上传</label>
+                                                <div class="col-lg-10">
+                                                    <input type="file" class="form-control" name="file"
+                                                           id="example-fileinput" >
+                                                    <a id="isFilelook">查看原文件</a>
+                                                    <a id="noFilelook">暂无文件</a>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" style="height: 100px">
+
+                                            </div>
+
+                                            <div class="form-group mb-0 justify-content-end row">
+                                                <div class="col-9">
+                                                    <button type="submit" style="width: 300px" class="btn btn-info">修改</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+
+
+        <!-- Footer Start -->
+        <div th:replace="common :: commonend"/>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<script th:inline="javascript">
+    window.onload=function (){
+        var filepath=[[${session.filepath}]];
+        var isFile = document.getElementById("isFilelook");
+        if (filepath.length<20)
+        {
+            //alert(1)
+            $("#isFilelook").hide();
+            $("#noFilelook").show();
+        }
+        if (filepath.length>30)
+        {
+            // alert(2)
+            $("#isFilelook").show();
+            $("#noFilelook").hide();
+            isFile.setAttribute("href",filepath);
+        }
+    }
+
+</script>
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+</body>
+</html>

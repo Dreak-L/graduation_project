@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <div th:replace="common :: commonhead"/>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div th:replace="common :: commonstart"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="common :: commonleft"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row page-title">
+                    <div class="col-md-12">
+
+                        <h4 class="mb-1 mt-0">病历管理</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title mt-0">病人病历</h4>
+
+                                <form class="form-horizontal" >
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="simpleinput">姓名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext" id="simpleinput" name="caseUserName" readonly
+                                                           placeholder="请输入患者姓名" th:value="${Medicaldetail.caseUsername}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-email">年龄</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" id="example-email" name="example-email" th:name="caseAge" readonly
+                                                           class="form-control-plaintext" placeholder="年龄" th:value="${Medicaldetail.caseAge}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">性别</label>
+                                                <div class="col-lg-10">
+                                                    <input th:if="${Medicaldetail.caseGender==1}" th:type="text"   class="form-control-plaintext" readonly  placeholder="性别" th:value="男">
+
+                                                    <input th:if="${Medicaldetail.caseGender==0}" th:type="text"   class="form-control-plaintext" readonly t placeholder="性别" th:value="女">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">身份证号</label>
+                                                <div class="col-lg-10">
+                                                    <input th:type="text" class="form-control-plaintext" readonly type="url" name="caseIdcard" placeholder="请输入患者身份证号" th:value="${Medicaldetail.caseIdcard}">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">手机号</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext" readonly
+                                                           placeholder="患者手机号" name="casePhoneNumer" th:value="${Medicaldetail.casePhoneNumer}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-placeholder">现居住地址</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext" readonly
+                                                           placeholder="请输入患者居住地址" id="example-placeholder" name="caseAddress" th:value="${Medicaldetail.caseAddress}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-textarea">症状分析</label>
+                                                <div class="col-lg-10">
+                                                            <textarea class="form-control-plaintext" rows="5" readonly
+                                                                      type="text"   id="example-textarea" name="caseContent" placeholder="患者症状" >[[${Medicaldetail.caseContent}]]</textarea>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">药品</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext" readonly
+                                                           placeholder="用药" name="caseUseDrug" th:value="${Medicaldetail.caseUseDrug}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-static">本医院邮箱</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                           id="example-static" value="email@example.com" name="caseEmail">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-helping">接诊医生编号</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext" id="example-helping" readonly
+                                                           th:value="${Medicaldetail.caseBydoctorid}" name="caseByDoctorId">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-helping">接诊科室</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext"  readonly
+                                                           th:value="${Medicaldetail.caseBydepart}" name="caseByDepart">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-static">接诊医生姓名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text"  class="form-control-plaintext" readonly
+                                                           id="example-static1" th:value="${Medicaldetail.caseBydoctorname}" name="caseByDoctorName">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       >文件</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" th:value="无" class="form-control-plaintext"  readonly
+                                                           id="example-fileinput"  >
+                                                    <a   id="medicalFilelook">查看</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-date">接诊时间</label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" id="example-date" type="date" readonly
+                                                           name="caseTime" th:value="${Medicaldetail.formateTime(Medicaldetail.caseTime)}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">状态</label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control-plaintext"  type="text" readonly
+                                                            th:value="${Medicaldetail.casePatientStatename}">
+                                                    <input class="form-control-plaintext"  type="text" style="display: none"
+                                                          id="stateid"  th:value="${Medicaldetail.casePatientStateid}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row" id="ruyuan" style="display: none">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-date">入院时间</label>
+                                                <div class="col-lg-10">
+                                                    <input class="form-control" th:if="${Medicaldetail.caseInHospital!=null}" id="example-date1" type="date"
+                                                           name="caseInHospital" th:value="${Medicaldetail.formateTime(Medicaldetail.caseInHospital)}">
+                                                    <input class="form-control" th:if="${Medicaldetail.caseInHospital==null}" id="example-date4" type="date"
+                                                           name="caseInHospital" th:value="${Medicaldetail.caseInHospital}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" id="chuyuan" style="display: none">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-date">出院时间</label>
+                                                <div class="col-lg-10" >
+                                                    <input th:if="${Medicaldetail.caseLeHospital==null}" class="form-control" id="example-date2" type="date"
+                                                           name="caseLeHospital" th:value="${Medicaldetail.caseLeHospital}">
+                                                    <input th:if="${Medicaldetail.caseLeHospital!=null}" class="form-control" id="example-date3" type="date"
+                                                           name="caseLeHospital" th:value="${Medicaldetail.formateTime(Medicaldetail.caseLeHospital)}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row" style="height: 100px">
+
+                                            </div>
+
+                                            <div class="form-group mb-0 justify-content-end row">
+                                                <div class="col-9">
+                                                    <button type="submit" style="width: 300px" class="btn btn-info" onclick="goBack()">返回</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+
+
+        <!-- Footer Start -->
+        <div th:replace="common :: commonend"/>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<script th:inline="javascript">
+    window.onload = function () {
+        var elementById = document.getElementById("stateid");
+        var elementById1 = document.getElementById("medicalFilelook");
+        var filepath=[[${session.filepath}]];
+        if (filepath.length<20) {
+            //alert(1)
+            $("#example-fileinput").show();
+            $("#medicalFilelook").hide();
+        }
+        if(filepath.length>30) {
+            //alert(2)
+            elementById1.setAttribute("href", filepath);
+            $("#example-fileinput").hide();
+            $("#medicalFilelook").show();
+        }
+        var value = elementById.value;
+        if (value==1){
+            $("#ruyuan").show();
+            $("#chuyuan").hide();
+        }
+        if (value==2){
+            $("#ruyuan").show();
+            $("#chuyuan").show();
+        }
+        if (value==3){
+            $("#ruyuan").hide();
+            $("#chuyuan").hide();
+        }
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+</body>
+</html>

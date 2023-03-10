@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <div th:replace="common :: commonhead"/>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div th:replace="common :: commonstart"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="common :: commonleft"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row page-title">
+                    <div class="col-md-12">
+                        <h4 class="mb-1 mt-0">状态管理</h4>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title mt-0">患者状态修改</h4>
+                                <p class="sub-header">
+                                    请选择要更改的状态！</p>
+
+                                <form class="form-horizontal" method="post" action="/updatePatientState" id="updatedoState">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group row" style="display: none">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="simpleinput">姓名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext"  name="id" readonly
+                                                           th:value="${medicalById.id}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="simpleinput">姓名</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text" class="form-control-plaintext" id="simpleinput" name="caseUsername" readonly
+                                                           th:value="${medicalById.caseUsername}">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">性别</label>
+                                                <div class="col-lg-10">
+                                                    <input type="text"  class="form-control-plaintext" th:if="${medicalById.caseGender==0}"  th:value="女">
+                                                    <input type="text"  class="form-control-plaintext" th:if="${medicalById.caseGender==1}"  th:value="男">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">身份证号</label>
+                                                <div class="col-lg-10">
+                                                    <input th:type="text" class="form-control-plaintext" type="url" readonly name="caseIdcard" th:value="${medicalById.caseIdcard}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">接诊科室</label>
+                                                <div class="col-lg-10">
+                                                    <input th:type="text" class="form-control-plaintext" type="url" readonly name="caseBydepart" th:value="${medicalById.caseBydepart}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col">
+
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 col-form-label">状态</label>
+                                                <div class="col-lg-10">
+                                                    <select id="PatientState" class="form-control custom-select" name="casePatientStateid" >
+                                                        <option th:each="st:${allState}" th:if="${st.patientstate!=null}" th:value="${st.stateid}" th:text="${st.patientstate}" th:selected="${medicalById.casePatientStateid==st.stateid}" onclick="f2()" >住院</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" id="ruyuan" style="">
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-date1">入院时间</label>
+                                                <div class="col-lg-10">
+                                                    <input th:if="${medicalById.caseInHospital==null}" class="form-control" id="example-date1" type="date"
+                                                           name="caseInHospital" th:value="${medicalById.caseInHospital}">
+                                                    <input th:if="${medicalById.caseInHospital!=null}" class="form-control" id="example-date4" type="date"
+                                                           name="caseInHospital" th:value="${medicalById.formateTime(medicalById.caseInHospital)}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" id="chuyuan" >
+                                                <label class="col-lg-2 col-form-label"
+                                                       for="example-date2">出院时间</label>
+                                                <div class="col-lg-10" >
+                                                    <input th:if="${medicalById.caseLeHospital==null}" class="form-control" id="example-date2" type="date"
+                                                           name="caseLeHospital" th:value="${medicalById.caseLeHospital}">
+                                                    <input th:if="${medicalById.caseLeHospital!=null}" class="form-control" id="example-date3" type="date"
+                                                           name="caseLeHospital" th:value="${medicalById.formateTime(medicalById.caseLeHospital)}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row" style="height: 100px">
+
+                                            </div>
+
+                                            <div class="form-group mb-0 justify-content-end row">
+                                                <div class="col-9">
+                                                    <button type="submit" style="width: 300px" class="btn btn-info" >修改</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div> <!-- end card-body -->
+                        </div> <!-- end card-->
+                    </div><!-- end col -->
+                </div>
+                <!-- end row -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+
+
+        <!-- Footer Start -->
+        <div th:replace="common :: commonend"/>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<!-- Vendor js -->
+<script th:inline="javascript">
+    window.onload = function () {
+        var elementById = document.getElementById("PatientState");
+        var selectedIndex = elementById.selectedIndex;
+        var value = elementById.options[selectedIndex].value;
+        if (value==1){
+            $("#ruyuan").show();
+            $("#chuyuan").hide();
+        }
+        if (value==2){
+            $("#ruyuan").show();
+            $("#ruyuan").attr("readonly","true");
+            $("#chuyuan").show();
+        }
+        if (value==3){
+            $("#ruyuan").hide();
+            $("#chuyuan").hide();
+        }
+    }
+
+    function f2() {
+        var elementById1 = document.getElementById("PatientState");
+        var selectedIndex1 = elementById1.selectedIndex;
+        var value1 = elementById1.options[selectedIndex1].value;
+        //alert(value1);
+        if (value1==1){
+            $("#ruyuan").show();
+            $("#chuyuan").hide();
+            //alert(value1)
+        }
+        if (value1==2){
+            $("#ruyuan").show();
+            $("#ruyuan").attr("readonly","true");
+            $("#chuyuan").show();
+            //alert(value1)
+        }
+        if (value1==3){
+            $("#ruyuan").hide();
+            $("#chuyuan").hide();
+            //alert(value1)
+        }
+    }
+</script>
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+</body>
+</html>

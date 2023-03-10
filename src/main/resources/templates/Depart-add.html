@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <div th:replace="common :: commonhead"/>
+    <style>
+        .col-form-label{
+            width: 150px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div th:replace="common :: commonstart"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="common :: commonleft"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row page-title">
+                    <div class="col-md-12">
+                        <nav aria-label="breadcrumb" class="float-right mt-1">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Shreyu</a></li>
+                                <li class="breadcrumb-item"><a href="#">Forms</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Basic</li>
+                            </ol>
+                        </nav>
+                        <h4 class="mb-1 mt-0">科室管理<h4>
+                    </div>
+                </div>
+
+                <div class="row" style="height: 400px">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="header-title mt-0">添加科室</h4>
+                                <p class="sub-header">
+                                    请输入新增科室的信息！</p>
+
+                                <form class="form-horizontal" method="post" id="addDepartform" action="/addDepart">
+                                    <div class="row">
+                                        <div  style="width: 200px;height:150px">
+                                            <!--class="col-lg-2 col-form-label" style="width: 150px"-->
+                                            <label style="position: relative;left: 20px"> 科室属于</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control custom-select" id="StateSelect" name="departbelong">
+                                                    <option th:each="debelong,st :${departBelong}" value="1" th:text="${debelong.departbelongname}" th:value="${debelong.id}">患者状态</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 200px;height:150px">
+                                            <label style="position: relative;left: 20px">科室名称</label>
+                                            <div class="col-lg-10">
+                                                <input th:type="text" style="width: 250px" class="form-control" id="addStatename"  placeholder="请输入新增科室名" name="departname">
+                                            </div>
+                                        </div>
+                                        <!--<div style="width: 400px;height:130px">
+                                            <label style="position: relative;left: 150px"
+                                                   for="example-textarea">科室简介</label>
+                                            <div  style="width: 500px;position: relative;left: 150px" >
+                                                            <textarea class="form-control" rows="4"
+                                                                      id="example-textarea" name="departdesc" placeholder="请输入新增科室简介"></textarea>
+                                            </div>
+                                        </div>-->
+                                        <div class="form-group row" style="height: 100px">
+
+                                        </div>
+
+                                        <div style="width: 200px;height:150px;position: relative;left: 450px;top: 50px">
+                                            <div class="col-9">
+                                                <button type="submit" style="width: 300px" class="btn btn-info" >保存</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card-->
+                </div><!-- end col -->
+            </div>
+            <!-- end row -->
+
+        </div> <!-- container-fluid -->
+
+    </div> <!-- content -->
+
+
+
+    <!-- Footer Start -->
+    <div th:replace="common :: commonend"/>
+    <!-- end Footer -->
+
+</div>
+
+<!-- ============================================================== -->
+<!-- End Page content -->
+<!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+<div class="right-bar">
+    <div class="rightbar-title">
+        <a href="javascript:void(0);" class="right-bar-toggle float-right">
+            <i data-feather="x-circle"></i>
+        </a>
+        <h5 class="m-0">Customization</h5>
+    </div>
+
+    <div class="slimscroll-menu">
+
+        <h5 class="font-size-16 pl-3 mt-4">Choose Variation</h5>
+        <div class="p-3">
+            <h6>Default</h6>
+            <a href="index.html"><img src="assets/images/layouts/vertical.jpg" alt="vertical" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Top Nav</h6>
+            <a href="layouts-horizontal.html"><img src="assets/images/layouts/horizontal.jpg" alt="horizontal" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Dark Side Nav</h6>
+            <a href="layouts-dark-sidebar.html"><img src="assets/images/layouts/vertical-dark-sidebar.jpg" alt="dark sidenav" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Condensed Side Nav</h6>
+            <a href="layouts-dark-sidebar.html"><img src="assets/images/layouts/vertical-condensed.jpg" alt="condensed" class="img-thumbnail demo-img" /></a>
+        </div>
+        <div class="px-3 py-1">
+            <h6>Fixed Width (Boxed)</h6>
+            <a href="layouts-boxed.html"><img src="assets/images/layouts/boxed.jpg" alt="boxed"
+                                              class="img-thumbnail demo-img" /></a>
+        </div>
+    </div> <!-- end slimscroll-menu-->
+</div>
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+<!--<script th:inline="javascript">
+    function addState() {
+        var elementById = document.getElementById("StateSelect");
+        var selectedIndex = elementById.selectedIndex;
+        var value = elementById.options[selectedIndex].value;
+        var elementsByTagNameElement = document.getElementById("addStateform");
+        var elementById1 = document.getElementById("addStatename");
+        if (value == 1) {
+            elementById1.name = "patientstate";
+            elementsByTagNameElement.action = "/addPatientState";
+        } else if (value == 0) {
+            elementById1.name = "statename";
+            elementsByTagNameElement.action = "/addDoctorState";
+        }
+    }
+</script>-->
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+</body>
+</html>

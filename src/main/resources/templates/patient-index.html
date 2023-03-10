@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <div th:replace="common :: commontitle"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" th:href="@{assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" th:href="@{assets/css/icons.min.css}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" th:href="@{assets/css/app.min.css}" rel="stylesheet" type="text/css" />
+
+    <!-- plugins -->
+    <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+
+
+
+</head>
+
+<body>
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div class="navbar navbar-expand flex-column flex-md-row navbar-custom">
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a href="index.html" class="navbar-brand mr-0 mr-md-2 logo">
+                            <span class="logo-lg">
+                                <img src="assets/images/favican.ico" alt="" height="50" />
+                                <span class="d-inline h5 ml-1 text-logo">病历管理系统-患者端</span>
+                            </span>
+                <span class="logo-sm">
+                                <img src="assets/images/favican.ico" alt="" height="50">
+                            </span>
+            </a>
+
+            <ul class="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
+                <li class="">
+                    <button class="button-menu-mobile open-left disable-btn">
+                        <i data-feather="menu" class="menu-icon"></i>
+                        <i data-feather="x" class="close-icon"></i>
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu">
+        <div class="media user-profile mt-2 mb-2">
+            <img src="assets/images/users/avatar-7.jpg" class="avatar-sm rounded-circle mr-2" alt="Shreyu" />
+            <img src="assets/images/users/avatar-7.jpg" class="avatar-xs rounded-circle mr-2" alt="Shreyu" />
+
+            <div class="media-body">
+                <h6 class="pro-user-name mt-0 mb-0">[[${session.loginpatient.patientName}]]</h6>
+                <span class="pro-user-desc">患者</span><span class="pro-user-desc" th:text="${session.loginpatient.patientStateName}">患者</span>
+            </div>
+            <div class="dropdown align-self-center profile-dropdown-menu">
+                <a class="dropdown-toggle mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                   aria-expanded="false">
+                    <span data-feather="chevron-down"></span>
+                </a>
+                <div class="dropdown-menu profile-dropdown">
+                    <a href="page-patient-deial.html" class="dropdown-item notify-item">
+                        <i data-feather="user" class="icon-dual icon-xs mr-2"></i>
+                        <span>个人信息</span>
+                    </a>
+
+
+                    <div class="dropdown-divider"></div>
+
+                    <a href="javascript:void(0);" th:href="@{/Logout}" class="dropdown-item notify-item">
+                        <i data-feather="log-out" class="icon-dual icon-xs mr-2"></i>
+                        <span>退出</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <!--- Sidemenu -->
+            <div id="sidebar-menu" class="slimscroll-menu">
+                <ul class="metismenu" id="menu-bar">
+                    <li class="menu-title">导航</li>
+
+                    <li>
+                        <a href="index.html">
+                            <i data-feather="home"></i>
+                            <span> 首页 </span>
+                        </a>
+                    </li>
+                    <li class="menu-title">病历管理</li>
+
+                    <li>
+                        <a href="javascript: void(0);">
+                            <i data-feather="inbox"></i>
+                            <span> 我的病例 </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li>
+                                <a href="email-inbox.html" th:href="@{/findPatientSelfMeical(idcard=${session.loginpatient.patientIdcard},pn=1)}">过往病历</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- End Sidebar -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+            <div class="container-fluid">
+
+                <!-- content -->
+                <div class="row" style="position: relative;top: 50px">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="media p-3">
+                                    <div class="media-body">
+                                        <span class="text-muted text-uppercase font-size-12 font-weight-bold">医生总数</span>
+                                        <h2 class="mb-0" th:text="${DoctorNum}">$2189</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="media p-3">
+                                    <div class="media-body">
+                                        <span class="text-muted text-uppercase font-size-12 font-weight-bold">注册人数</span>
+                                        <h2 class="mb-0" th:text="${PatientNum}">1065</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="media p-3">
+                                    <div class="media-body">
+                                        <span class="text-muted text-uppercase font-size-12 font-weight-bold">科室总数</span>
+                                        <h2 class="mb-0" th:text="${departmentAllNum}">11</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="media p-3">
+                                    <div class="media-body">
+                                        <span class="text-muted text-uppercase font-size-12 font-weight-bold">共接诊</span>
+                                        <h2 class="mb-0" th:text="${session.MedicalNum}">750</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="card-title header-title border-bottom p-3 mb-0"  style="position: relative;top: 100px;">医院职位总览</h5>
+
+                <!-- stats + charts -->
+                <div class="row" style="position: relative;top: 100px;width:100% ;background-color: #ffffff" >
+                    <div class="col-xl-3">
+                        <h5 class="card-title header-title border-bottom p-3 mb-0">院长/副院长</h5>
+                        <!-- stat 1 -->
+                        <table class="table  mb-0" style="width: 400px">
+                            <thead >
+                            <tr>
+                                <th scope="col" width="100px">姓名 </font></th>
+                                <th scope="col" width="100px">职位 </font></th>
+                                <th scope="col" width="100px">科室 </font></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="do:${yuanzhang}">
+                                <td th:text="${do.username}" > </td>
+                                <td th:text="${do.userRolename}"></td>
+                                <td th:text="${do.userDepartname}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="col-xl-3" style="position: relative;left: 50px">
+                        <h5 class="card-title header-title border-bottom p-3 mb-0">主任/副主任</h5>
+                        <!-- stat 1 -->
+                        <table class="table  mb-0" style="width: 600px">
+                            <thead >
+                            <tr>
+                                <th scope="col" width="100px">姓名 </font></th>
+                                <th scope="col" width="100px">职位 </font></th>
+                                <th scope="col" width="100px">科室 </font></th>
+                                <th scope="col" width="100px">科室所属 </font></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="do:${zhuren}">
+                                <td th:text="${do.username}" > </td>
+                                <td th:text="${do.userRolename}"></td>
+                                <td th:text="${do.userDepartname}"></td>
+                                <td th:text="${do.userDepartbelongname}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xl-3" style="position: relative;left:325px">
+                        <h5 class="card-title header-title border-bottom p-3 mb-0">科长/副科长</h5>
+                        <!-- stat 1 -->
+                        <table class="table mb-0" style="width: 400px">
+                            <thead >
+                            <tr>
+                                <th scope="col" width="100px">姓名 </font></th>
+                                <th scope="col" width="100px">职位 </font></th>
+                                <th scope="col" width="100px">科室 </font></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="do:${kezhang}">
+                                <td th:text="${do.username}" > </td>
+                                <td th:text="${do.userRolename}"></td>
+                                <td th:text="${do.userDepartname}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- row -->
+
+
+            </div>
+        </div> <!-- content -->
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        2022 &copy; graduation By Lsk
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- optional plugins -->
+<script src="assets/libs/moment/moment.min.js"></script>
+<script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="assets/libs/flatpickr/flatpickr.min.js"></script>
+
+<!-- page js -->
+<script src="assets/js/pages/dashboard.init.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+
+</body>
+</html>

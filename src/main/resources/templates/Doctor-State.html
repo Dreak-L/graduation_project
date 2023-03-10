@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <div th:replace="common :: commonhead"/>
+
+    <!-- plugin css -->
+    <link href="assets/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .pagination-rounded1{
+            position: relative;
+            left: 600px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div th:replace="common :: commonstart"/>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div th:replace="common :: commonleft"/>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content">
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+                <div class="row page-title">
+                    <div class="col-md-12">
+                        <h4 class="mb-1 mt-0">状态管理</h4>
+                    </div>
+                </div>
+
+
+                <!-- end row-->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="header-title mt-0 mb-1" th:text="${nowDoctorState}">所有医生</h4>
+                        <p class="sub-header">
+                            顺境勿骄，逆勿沉，做堂堂正正人，平境勿庸，浊勿乱，行廉廉洁洁医。
+                        </p>
+
+
+                        <table id="datatable-buttons" class="table table-striped dt-responsive nowrap">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>医生姓名</th>
+                                <th>医生性别</th>
+                                <th>证件号</th>
+                                <th>科室</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            <tr th:each="doctor,st: ${doctorByState.records}" th:switch="${doctor.userGender}">
+                                <td th:text="${doctor.id}">id</td>
+                                <td th:text="${doctor.username}">name</td>
+                                <td th:case="0" th:text="女">gender</td>
+                                <td th:case="1" th:text="男">gender</td>
+                                <td th:text="${doctor.userIdcard}">idcard</td>
+                                <td th:text="${doctor.userDepartname}">idcard</td>
+                                <td th:text="${doctor.userStatename}">state</td>
+                                <td>
+                                    <a href="" th:href="@{/updateDoctorStateUI(id=${doctor.id})}">修改</a>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <input style="visibility: hidden">
+                        <input style="visibility: hidden">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-5">
+                                <div class="dataTables_info" id="basic-datatable_info1" role="status" aria-live="polite">
+                                    <font style="vertical-align: inherit;">当前第 [[${doctorByState.current}]] 页，共 [[${doctorByState.pages}]] 页，总计 [[${doctorByState.total}]] 条记录 </font>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-7" >
+                                <div class="dataTables_paginate paging_simple_numbers" id="basic-datatable_paginate" >
+                                    <ul class="pagination pagination-rounded1" >
+                                        <li class="paginate_button page-item previous" id="basic-datatable_previous">
+                                            <a href="#" th:href="@{/findDoctorByState(StateName=${nowDoctorState},pn=${doctorByState.current},previous=${doctorByState.hasPrevious()})}" aria-controls="basic-datatable" data-dt-idx="0" tabindex="0" class="page-link">
+                                                <i class="uil uil-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li th:class="${num == doctorByState.current?'paginate_button page-item active':''}" class="paginate_button page-item active" th:each="num:${#numbers.sequence(1,doctorByState.pages)}">
+                                            <a href="#" th:href="@{/findDoctorByState(StateName=${nowDoctorState},pn=${num})}" aria-controls="basic-datatable" data-dt-idx="1" tabindex="0" class="page-link">
+                                                <font style="vertical-align: inherit;" >[[${num}]]</font>
+                                            </a>
+                                        </li>
+                                        <li class="paginate_button page-item next" id="basic-datatable_next">
+                                            <a href="#" th:href="@{/findDoctorByState(StateName=${nowDoctorState},pn=${doctorByState.current},next=${doctorByState.hasNext()})}" aria-controls="basic-datatable" data-dt-idx="7" tabindex="0" class="page-link">
+                                                <i class="uil uil-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+
+        <!-- Footer Start -->
+        <div th:replace="common :: commonend"/>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<!-- Right Sidebar -->
+
+<!-- /Right-bar -->
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- datatable js -->
+<script src="assets/libs/datatables/jquery.dataTables.min.js"></script>
+<script src="assets/libs/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="assets/libs/datatables/dataTables.responsive.min.js"></script>
+<script src="assets/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+<script src="assets/libs/datatables/dataTables.buttons.min.js"></script>
+<script src="assets/libs/datatables/buttons.bootstrap4.min.js"></script>
+<script src="assets/libs/datatables/buttons.html5.min.js"></script>
+<script src="assets/libs/datatables/buttons.flash.min.js"></script>
+<script src="assets/libs/datatables/buttons.print.min.js"></script>
+
+<script src="assets/libs/datatables/dataTables.keyTable.min.js"></script>
+<script src="assets/libs/datatables/dataTables.select.min.js"></script>
+
+<!-- Datatables init -->
+<script src="assets/js/pages/datatables.init.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <div th:fragment="commontitle">
+        <title>病历管理系统</title>
+    </div>
+    <div th:fragment="commonhead">
+    <!-- App favicon -->
+    <link rel="shortcut icon" th:href="@{assets/images/favicon.ico}" href="assets">
+
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" th:href="@{assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" th:href="@{assets/css/icons.min.css}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" th:href="@{assets/css/app.min.css}" rel="stylesheet" type="text/css" />
+    </div>
+</head>
+<body>
+
+    <div th:fragment="commonstart">
+    <!-- Topbar Start -->
+    <div class="navbar navbar-expand flex-column flex-md-row navbar-custom">
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a href="index.html" class="navbar-brand mr-0 mr-md-2 logo">
+                            <span class="logo-lg">
+                                <img src="assets/images/favican.ico" alt="" height="50" />
+                                <span class="d-inline h5 ml-1 text-logo">病历管理系统-医生端</span>
+                            </span>
+                <span class="logo-sm">
+                                <img src="assets/images/favican.ico" alt="" height="50">
+                            </span>
+            </a>
+
+            <ul class="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
+                <li class="">
+                    <button class="button-menu-mobile open-left disable-btn">
+                        <i data-feather="menu" class="menu-icon"></i>
+                        <i data-feather="x" class="close-icon"></i>
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- end Topbar --></div>
+
+    <div th:fragment="commonleft">
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu">
+        <div class="media user-profile mt-2 mb-2">
+            <img src="assets/images/users/avatar-7.jpg" th:src="@{(${session.loginuser.getUserPhotoRequest()})}" class="avatar-sm rounded-circle mr-2" th:alt="${session.loginuser.username}" style="width: 36px;height: 36px"/>
+            <div class="media-body">
+                <h6 class="pro-user-name mt-0 mb-0">[[${session.loginuser.username}]]</h6>
+                <span class="pro-user-desc" th:text="${session.loginuser.userRolename}">Administrator</span>
+            </div>
+            <div class="dropdown align-self-center profile-dropdown-menu">
+                <a class="dropdown-toggle mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                   aria-expanded="false">
+                    <span data-feather="chevron-down"></span>
+                </a>
+                <div class="dropdown-menu profile-dropdown">
+                    <a href="pages-profile.html" class="dropdown-item notify-item">
+                        <i data-feather="user" class="icon-dual icon-xs mr-2"></i>
+                        <span>个人信息</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+
+                    <a href="javascript:void(0);" th:href="@{/Logout}" class="dropdown-item notify-item">
+                        <i data-feather="log-out" class="icon-dual icon-xs mr-2"></i>
+                        <span>退出</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <!--- Sidemenu -->
+            <div id="sidebar-menu" class="slimscroll-menu">
+                <ul class="metismenu" id="menu-bar">
+                    <li class="menu-title">导航</li>
+
+                    <li>
+                        <a href="index.html">
+                            <i data-feather="home"></i>
+                            <span> 首页 </span>
+                        </a>
+                    </li>
+                    <li class="menu-title">病历</li>
+                    <li>
+                        <a href="javascript: void(0);">
+                            <i data-feather="layout"></i>
+                            <span> 病历管理 </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li>
+                                <a href="Medical-add.html">添加病历</a>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" th:href="@{/findMedicalBySelf(MedicalByid=${session.loginuser.getId()},pn=1)}">接诊病历</a>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" onclick="findMedicalByDepart()">
+                                    <span>科室病历</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+
+                                <ul class="nav-second-level" aria-expanded="false" id="medicalByDepart" th:id="findMedicalByDepart">
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-title" id="departguanlititle">科室</li>
+                    <li id="departguanli">
+                        <a href="javascript: void(0);" >
+                            <i data-feather="inbox"></i>
+                            <span>科室管理</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level" aria-expanded="false"  >
+                            <li >
+                                <a href="Depart-add.html">
+                                    <span>添加科室</span>
+                                </a>
+                            </li>
+                            <li >
+                                <a th:href="@{/findalldepartment(pn=1)}">
+                                    <span>所有科室</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title" id="usertitle">用户</li>
+                    <li id="userguanli">
+                        <a href="javascript: void(0);">
+                            <i class="icon-dual" data-feather="user"></i>
+                            <span> 用户管理 </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li>
+                                <a href="javascript: void(0);" >
+                                    <span>患者管理</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <ul class="nav-second-level" aria-expanded="false" >
+                                    <li>
+                                        <a th:href="@{/addPatientUI}">添加患者</a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/getAllPatients(pn=1)}">所有患者</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript: void(0);" >
+                                    <span>医生管理</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+                                <ul class="nav-second-level" aria-expanded="false" >
+                                    <li>
+                                        <a th:href="@{/TouserRegister}">添加医生</a>
+                                    </li>
+                                    <li id="alldoctor">
+                                        <a th:href="@{/getAllDoctors(pn=1)}">所有医生</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" onclick="f()">
+                                            <span>科室人员</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+
+                                        <ul class="nav-second-level" aria-expanded="false" id="findalldepartment" >
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-title">状态</li>
+                    <li >
+                        <a href="javascript: void(0);" >
+                            <i data-feather="bookmark"></i>
+                            <span> 状态管理 </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level" aria-expanded="false" >
+
+                            <li id="stateguanli">
+                                <a href="javascript: void(0);" >
+                                    <span>所有状态管理</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+
+                                <ul class="nav-second-level" aria-expanded="false"  >
+                                    <li >
+                                        <a href="State-add.html">
+                                        <span>添加状态</span>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a href="/findPatientAllStates" th:href="@{/findPatientAllStates(pn=1)}">
+                                            <span>所有患者状态</span>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a href="/findDoctorAllStates" th:href="@{/findDoctorAllStates(pn=1)}">
+                                            <span>所有医生状态</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript: void(0);" onclick="findPatientState()">
+                                    <span>患者状态</span>
+                                    <span class="menu-arrow"></span>
+                                </a>
+
+                                <ul class="nav-second-level" aria-expanded="false" id="patientstate" >
+
+                                </ul>
+                            </li>
+                            <li id="doctorstateguanli">
+                            <a href="javascript: void(0);" onclick="findDoctorState()" id="dostateguanli">
+                                <span>医生状态</span>
+                                <span class="menu-arrow"></span>
+                            </a>
+
+                            <ul class="nav-second-level" aria-expanded="false" id="doctorstate" >
+
+                            </ul>
+                        </li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-title" id="roletitle">角色</li>
+
+                    <li id="isDoctorToRole">
+                        <a href="javascript: void(0);" onclick="findRoleName()">
+                            <i class="uil uil-user-check"></i>
+                            <span> 角色管理 </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="nav-second-level" aria-expanded="false" id="roleName">
+
+                        </ul>
+                    </li>
+
+
+                </ul>
+            </div>
+            <!-- End Sidebar -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End --></div>
+
+    <div th:fragment="commonend">
+    <!-- Footer Start -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    2022 &copy; graduation By Lsk
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+    <script th:inline="javascript">
+            var de = 0;
+            var doctorstate = 0;
+            var patientstate = 0;
+            var rolename = 0;
+            var Medicalbydepart = 0;
+            var isDoctorToRole = document.getElementById("isDoctorToRole");
+            var isDoctor = [[${session.loginuser.userRoleid}]];
+            var isDoctorDepartbelong = [[${session.loginuser.userDepartbelongname}]];
+            var isDoctorDepart = [[${session.loginuser.userDepartname}]];
+            var list = [[${session.Departsinfor}]];
+            var dejianting = new Array(list.length);
+            //document.getElementById("alldoctor").style.display = "none";
+            for (var i = 0; i < list.length; i++) {
+                dejianting[i] = 0;
+            }
+            if (isDoctor != 1) {
+                document.getElementById("stateguanli").style.display = "none";
+                document.getElementById("departguanli").style.display = "none";
+                document.getElementById("departguanlititle").style.display = "none";
+                document.getElementById("alldoctor").style.display="none";
+            }
+            /* if (isDoctor=6||isDoctor==7){
+
+        }*/
+            if (isDoctor == 8) {
+                isDoctorToRole.style.display = "none";
+                document.getElementById("userguanli").style.display = "none";
+                document.getElementById("usertitle").style.display = "none";
+                document.getElementById("roletitle").style.display = "none";
+                document.getElementById("dostateguanli").style.display = "none";
+            }
+
+            function f() {
+                if (de == 0) {
+                    var departBe = [[${session.departdelongs}]];
+                    var ul = document.getElementById("findalldepartment")
+                    //alert("hello");
+
+                    for (var i = 0; i < list.length; i++) {
+                        var departbelongli = document.createElement("li");
+                        if (isDoctor == 4 || isDoctor == 5 || isDoctor == 6 || isDoctor == 7 || isDoctor == 8) {
+                            if (departBe[i] != isDoctorDepartbelong) {
+                                departbelongli.style.display = "none";
+                            }
+                        }
+                        var departbelonga = document.createElement("a");
+                        departbelonga.setAttribute("href", 'javascript: void(0)');
+                        departbelonga.setAttribute("name", "belonga");
+                        departbelonga.innerHTML = "<span>" + departBe[i] + "</span>" +
+                            " <span class='menu-arrow'></span>";
+
+                        var departbelongul = document.createElement("ul");
+                        departbelongul.style.display = 'none';
+                        departbelongli.appendChild(departbelonga);
+                        departbelongli.appendChild(departbelongul);
+                        ul.appendChild(departbelongli);
+                    }
+                    var belonga = document.getElementsByName("belonga");
+                    var belongul = ul.getElementsByTagName("ul");
+                    var belongli = ul.getElementsByTagName("li");
+                    for (var i = 0; i < belonga.length; i++) {
+                        belonga[i].index = i;
+                        belonga[i].addEventListener('click', function () {
+                            if (dejianting[this.index] % 2 == 0) {
+                                belongli[this.index].setAttribute("class", "mm-active");
+                                belongul[this.index].style.display = 'block';
+                                dejianting[this.index]++;
+
+                            } else {
+                                belongli[this.index].setAttribute("class", "");
+                                belongul[this.index].style.display = 'none';
+                                dejianting[this.index]++;
+
+                            }
+                        });
+                    }
+
+                    for (var i = 0; i < list.length; i++) {
+                        for (var j = 0; j < list[i].length; ++j) {
+                            if (list[i][j] != null) {
+                                var obj = document.createElement("li");
+                                if (isDoctor == 6 || isDoctor == 7 || isDoctor == 8) {
+                                    if (list[i][j] != isDoctorDepart) {
+                                        obj.style.display = "none";
+                                    }
+                                }
+                                var departname = "/findDepartUserByName?departname=" + list[i][j] + "&pn=" + 1;
+                                var obja = document.createElement("a");
+                                obja.innerHTML = "<span>" + list[i][j] + "</span>";
+                                obja.setAttribute("href", departname);
+                                obj.appendChild(obja);
+                                belongul[i].appendChild(obj);
+                            }
+                        }
+                    }
+                    de++;
+                } else {
+                    return null;
+                }
+            }
+
+
+            //医生状态
+            function findDoctorState() {
+                if (doctorstate == 0) {
+                    var list1 = [[${session.allDoctorState}]];
+                    var ul1 = document.getElementById("doctorstate");
+                    // alert("hello");
+                    for (var i = 0; i < list1.length; ++i) {
+                        //alert(list1[i]);
+                        var obj1 = document.createElement("li");
+                        obj1.innerHTML = "<a href=''>" + list1[i] + "</a>";
+                        ul1.appendChild(obj1);
+
+                    }
+
+                    //获取li中所有的<a>
+                    var alist1 = ul1.getElementsByTagName("a");
+                    for (var j = 0; j < list1.length; j++) {
+                        //alert(list[j]);
+                        if (list1[j] != null) {
+                            var doStatename = "/findDoctorByState?StateName=" + list1[j] + "&pn=1";
+                            alist1[j].setAttribute("href", doStatename);
+                        }
+                    }
+                    doctorstate = 1;
+                } else {
+                    return null;
+                }
+            }
+
+            //角色管理
+            function findRoleName() {
+                if (rolename == 0) {
+                    var departBe = [[${session.departdelongs}]];
+                    var ul = document.getElementById("roleName");
+                    //alert("hello");
+
+                    for (var i = 0; i < list.length; i++) {
+                        var departbelongli = document.createElement("li");
+                        if (isDoctor == 4 || isDoctor == 5 || isDoctor == 6 || isDoctor == 7 || isDoctor == 8) {
+                            if (departBe[i] != isDoctorDepartbelong) {
+                                departbelongli.style.display = "none";
+                            }
+                        }
+                        var departbelonga = document.createElement("a");
+                        departbelonga.setAttribute("href", 'javascript: void(0)');
+                        departbelonga.setAttribute("name", "belonga");
+                        departbelonga.innerHTML = "<span>" + departBe[i] + "</span>" +
+                            " <span class='menu-arrow'></span>";
+
+                        var departbelongul = document.createElement("ul");
+                        departbelongul.style.display = 'none';
+                        departbelongli.appendChild(departbelonga);
+                        departbelongli.appendChild(departbelongul);
+                        ul.appendChild(departbelongli);
+                    }
+                    var belonga = document.getElementsByName("belonga");
+                    var belongul = ul.getElementsByTagName("ul");
+                    var belongli = ul.getElementsByTagName("li");
+                    for (var i = 0; i < belonga.length; i++) {
+                        belonga[i].index = i;
+                        belonga[i].addEventListener('click', function () {
+                            if (dejianting[this.index] % 2 == 0) {
+                                belongli[this.index].setAttribute("class", "mm-active");
+                                belongul[this.index].style.display = 'block';
+                                dejianting[this.index]++;
+
+                            } else {
+                                belongli[this.index].setAttribute("class", "");
+                                belongul[this.index].style.display = 'none';
+                                dejianting[this.index]++;
+
+                            }
+                        });
+                    }
+
+                    for (var i = 0; i < list.length; i++) {
+                        for (var j = 0; j < list[i].length; ++j) {
+                            if (list[i][j] != null) {
+                                var obj = document.createElement("li");
+                                if (isDoctor == 6 || isDoctor == 7 || isDoctor == 8) {
+                                    if (list[i][j] != isDoctorDepart) {
+                                        obj.style.display = "none";
+                                    }
+                                }
+                                var departname = "/findDepartUserByNameRoleUI?departname=" + list[i][j] + "&pn=" + 1;
+                                var obja = document.createElement("a");
+                                obja.innerHTML = "<span>" + list[i][j] + "</span>";
+                                obja.setAttribute("href", departname);
+                                obj.appendChild(obja);
+                                belongul[i].appendChild(obj);
+                            }
+                        }
+                    }
+                    rolename++;
+                } else {
+                    return null;
+                }
+            }
+
+            //患者状态
+            function findPatientState() {
+                if (patientstate == 0) {
+                    var list2 = [[${session.allPatientState}]];
+                    var ul2 = document.getElementById("patientstate");
+                    // alert("hello");
+                    for (var i = 0; i < list2.length; ++i) {
+                        //alert(list1[i]);
+                        if (list2[i] != null) {
+                            var obj2 = document.createElement("li");
+                            obj2.innerHTML = "<a href=''>" + list2[i] + "</a>";
+                            ul2.appendChild(obj2);
+                        }
+
+                    }
+
+                    //获取li中所有的<a>
+                    var alist2 = ul2.getElementsByTagName("a");
+                    for (var j = 0; j < list2.length; j++) {
+                        //alert(list[j]);
+                        if (list2[j] != null) {
+                            var patientState = "/findPatientByState?StateName=" + list2[j] + "&pn=1";
+                            alist2[j].setAttribute("href", patientState);
+                        }
+                    }
+                    patientstate = 1;
+                } else {
+                    return null;
+                }
+            }
+
+            //科室病历
+            function findMedicalByDepart() {
+                if (Medicalbydepart == 0) {
+                    var departBe = [[${session.departdelongs}]];
+                    var ul = document.getElementById("findMedicalByDepart")
+                    //alert("hello");
+                    for (var i = 0; i < list.length; i++) {
+                        var departbelongli = document.createElement("li");
+                        if (isDoctor == 4 || isDoctor == 5 || isDoctor == 6 || isDoctor == 7 || isDoctor == 8) {
+                            if (departBe[i] != isDoctorDepartbelong) {
+                                departbelongli.style.display = "none";
+                            }
+                        }
+                        var departbelonga = document.createElement("a");
+                        departbelonga.setAttribute("href", 'javascript: void(0)');
+                        departbelonga.setAttribute("name", "meddeparta");
+                        departbelonga.innerHTML = "<span>" + departBe[i] + "</span>" +
+                            " <span class='menu-arrow'></span>";
+
+                        var departbelongul = document.createElement("ul");
+                        departbelongul.style.display = 'none';
+                        departbelongli.appendChild(departbelonga);
+                        departbelongli.appendChild(departbelongul);
+                        ul.appendChild(departbelongli);
+                    }
+                    var belonga = document.getElementsByName("meddeparta");
+                    var belongul = ul.getElementsByTagName("ul");
+                    var belongli = ul.getElementsByTagName("li");
+                    for (var i = 0; i < belonga.length; i++) {
+                        belonga[i].index = i;
+                        belonga[i].addEventListener('click', function () {
+                            if (dejianting[this.index] % 2 == 0) {
+                                belongli[this.index].setAttribute("class", "mm-active");
+                                belongul[this.index].style.display = 'block';
+                                dejianting[this.index]++;
+
+                            } else {
+                                belongli[this.index].setAttribute("class", "");
+                                belongul[this.index].style.display = 'none';
+                                dejianting[this.index]++;
+
+                            }
+                        });
+                    }
+
+                    for (var i = 0; i < list.length; i++) {
+                        for (var j = 0; j < list[i].length; ++j) {
+                            if (list[i][j] != null) {
+                                var obj = document.createElement("li");
+                                if (isDoctor == 6 || isDoctor == 7 || isDoctor == 8) {
+                                    if (list[i][j] != isDoctorDepart) {
+                                        obj.style.display = "none";
+                                    }
+                                }
+                                var departname = "/findMedicalRocardBydepart?departname=" + list[i][j] + "&pn=" + 1;
+                                var obja = document.createElement("a");
+                                obja.innerHTML = "<span>" + list[i][j] + "</span>";
+                                obja.setAttribute("href", departname);
+                                obj.appendChild(obja);
+                                belongul[i].appendChild(obj);
+                            }
+                        }
+                    }
+                    Medicalbydepart++;
+                } else {
+                    return null;
+                }
+            }
+
+    </script>
+
+    </div>
+</body>
+
+</html>

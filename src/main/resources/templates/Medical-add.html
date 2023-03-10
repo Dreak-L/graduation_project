@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <div th:replace="common :: commontitle"/>        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <div th:replace="common :: commonhead"/>
+
+    </head>
+
+    <body>
+
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- Topbar Start -->
+            <div th:replace="common :: commonstart"/>
+            <!-- end Topbar -->
+
+            <!-- ========== Left Sidebar Start ========== -->
+            <div th:replace="common :: commonleft"/>
+            <!-- Left Sidebar End -->
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                        <div class="row page-title">
+                            <div class="col-md-12">
+                                <h4 class="mb-1 mt-0">病历管理</h4>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title mt-0">新增病历</h4>
+                                        <p class="sub-header">
+                                            请确保患者的真实情况！</p>
+
+                                        <form class="form-horizontal" method="post" action="/addMedicalRecord?" id="addmed" enctype="multipart/form-data" >
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="simpleinput">姓名</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control" id="simpleinput" name="caseUsername"
+                                                                   placeholder="请输入患者姓名">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-email">年龄</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" id="example-email" name="example-email" th:name="caseAge"
+                                                                   class="form-control" placeholder="请输入患者年龄">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">性别</label>
+                                                        <div class="col-lg-10">
+                                                            <select class="form-control custom-select" name="caseGender">
+                                                                <option value="1">男</option>
+                                                                <option value="0">女</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">身份证号</label>
+                                                        <div class="col-lg-10">
+                                                            <input th:type="text" class="form-control" type="url" name="caseIdcard" placeholder="请输入患者身份证号">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">手机号</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="患者手机号" name="casePhoneNumer">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-placeholder">现居住地址</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="请输入患者居住地址" id="example-placeholder" name="caseAddress">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-textarea">症状分析</label>
+                                                        <div class="col-lg-10">
+                                                            <textarea class="form-control" rows="5"
+                                                                      id="example-textarea" name="caseContent" placeholder="患者症状"></textarea>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">药品</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="用药" name="caseUseDrug">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-static">本医院邮箱</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" readonly class="form-control-plaintext"
+                                                                   id="example-static" value="email@example.com" >
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-helping">接诊医生编号</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control-plaintext" id="example-helping" readonly
+                                                                   th:value="${session.loginuser.id}" name="caseBydoctorid">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-helping">接诊科室</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text" class="form-control-plaintext"  readonly
+                                                                   th:value="${session.loginuser.userDepartname}" name="caseBydepart">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-static">接诊医生姓名</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="text"  class="form-control-plaintext" readonly
+                                                                   id="example-static1" th:value="${session.loginuser.username}" name="caseBydoctorname">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-fileinput">文件上传</label>
+                                                        <div class="col-lg-10">
+                                                            <input type="file" class="form-control" name="file"
+                                                                   id="example-fileinput" >
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-date">接诊时间</label>
+                                                        <div class="col-lg-10">
+                                                            <input class="form-control" readonly id="example-date" type="date"
+                                                                   name="caseTime" th:value="${nowDate}">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label class="col-lg-2 col-form-label">状态</label>
+                                                        <div class="col-lg-10">
+                                                            <select id="casePatientState" class="form-control custom-select" name="casePatientStateid" >
+                                                               <option th:each="st:${allState}" th:if="${st.patientstate!=null&&st.stateid!=2}" th:text="${st.patientstate}" th:value="${st.stateid}" onclick="f1()">
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row" id="ruyuan" >
+                                                        <label class="col-lg-2 col-form-label"
+                                                               for="example-date">入院时间</label>
+                                                        <div class="col-lg-10">
+                                                            <input class="form-control" id="example-date1" type="date"
+                                                                   name="caseInHospital">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group row" style="height: 100px">
+
+                                                    </div>
+
+                                                    <div class="form-group mb-0 justify-content-end row">
+                                                        <div class="col-9">
+                                                            <button type="submit" style="width: 300px" class="btn btn-info" onclick="f()">保存</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                    </div> <!-- end card-body -->
+                                </div> <!-- end card-->
+                            </div><!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                    </div> <!-- container-fluid -->
+
+                </div> <!-- content -->
+
+
+
+                <!-- Footer Start -->
+                <div th:replace="common :: commonend"/>
+                <!-- end Footer -->
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+        <script th:inline="javascript">
+           /* window.onload = function () {
+                var s=document.getElementById("example-fileinput").value;
+                if (s=="")
+                    alert(999);
+            }*/
+            var elementById1 = document.getElementById("ruyuan");
+            function f() {
+                /*var elementById = document.getElementById("casePatientState");
+                var selectedIndex = elementById.selectedIndex;
+                var value = elementById.options[selectedIndex].value;*/
+                var elementById3 = document.getElementById("addmed");
+                var s=document.getElementById("example-fileinput").value;
+                if (s=="") {
+                    elementById3.action=elementById3.action+"st="+1;
+                }
+                if (s!="") {
+                    elementById3.action=elementById3.action+"st="+2;
+                }
+            }
+            function f1() {
+                var elementById = document.getElementById("casePatientState");
+                var selectedIndex = elementById.selectedIndex;
+                var value = elementById.options[selectedIndex].value;
+                
+                if (value>=3) {
+                    $("#ruyuan").hide();
+                }
+                if (value==1) {
+                    $("#ruyuan").show();
+                }
+            }
+        </script>
+        <!-- Vendor js -->
+        <script src="assets/js/vendor.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.min.js"></script>
+        
+    </body>
+</html>

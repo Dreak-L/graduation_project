@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <div th:replace="common :: commontitle"/>        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <div th:replace="common :: commonhead"/>
+
+    </head>
+
+    <body class="authentication-bg">
+        
+        <div class="account-pages my-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-10">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="row">
+                                    <div class="col-lg-6 p-5">
+                                        <div class="mx-auto mb-5">
+                                            <a href="index.html">
+                                                <img src="assets/images/favican.ico" alt="" height="50" />
+                                                <h3 class="d-inline align-middle ml-1 text-logo">病历管理系统</h3>
+                                            </a>
+                                        </div>
+
+                                        <h6 class="h5 mb-0 mt-4">创建你的账号</h6>
+
+                                        <form action="#" class="authentication-form" th:method="post" th:action="@{/PatientRegister}" >
+                                            <div class="form-group">
+                                                <label class="form-control-label">姓名</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="icon-dual" data-feather="user"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="name"
+                                                        placeholder="真实姓名" name="patientName">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-control-label">性别</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="uil uil-users-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control custom-select" name="patientGender" >
+                                                        <option value="1">男</option>
+                                                        <option value="0">女</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-control-label">账号</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="icon-dual" data-feather="mail"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="email" class="form-control" id="email" placeholder="设置您的账号" name="patientEmail">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group ">
+                                                <label class="form-control-label">密码</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                            <i class="icon-dual" data-feather="lock"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="password" class="form-control" id="password"
+                                                        placeholder="设置您的密码" name="patientPassword">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="form-control-label">身份证号</label>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text">
+                                                           <i class="uil uil-postcard"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="phone" placeholder="请输入您的身份证号！" name="patientIdcard">
+                                                </div>
+                                            </div>
+
+                                            <input type="text" name="patientStateId" style = "display:none" th:value="3"/>
+
+
+
+
+                                            <div class="form-group mb-0 text-center">
+                                                <button class="btn btn-primary btn-block" type="submit" onclick="r()">注册</button>
+                                            </div>
+                                        </form>
+<!--                                        <div class="form-group">-->
+<!--                                            <label class="form-control-label">救护车</label>-->
+<!--                                            <div class="input-group input-group-merge">-->
+<!--                                                <div class="input-group-prepend">-->
+<!--                                                        <span class="input-group-text">-->
+<!--                                                           <i class="uil uil-ambulance"></i>-->
+<!--                                                        </span>-->
+<!--                                                </div>-->
+<!--                                                <input type="text" class="form-control" id="helpcar" readonly th:value="81-1523485xxxxx">-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+                                    </div>
+
+                                    
+                                    <div class="col-lg-6 d-none d-md-inline-block">
+                                        <div class="auth-page-sidebar">
+                                            <div class="overlay" ></div>
+                                            <div class="auth-user-testimonial">
+                                                <p class="font-size-24 font-weight-bold text-white mb-1">热爱生活，爱自己！</p>
+                                                <p class="lead">"太阳每天都是新的，心态也要充满阳光！"</p>
+                                                <p>加油💪💪💪！</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div> <!-- end card-body -->
+                        </div>
+                        <!-- end card -->
+
+                        <div class="row mt-3">
+                            <div class="col-12 text-center">
+                                <p class="text-muted">已有帐户? <a href="pages-login.html" th:href="@{/}" class="text-primary font-weight-bold ml-1">登录</a></p>
+                            </div> <!-- end col -->
+                        </div>
+                        <!-- end row -->
+
+                    </div> <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end page -->
+
+        <!-- Vendor js -->
+        <script src="assets/js/vendor.min.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.min.js"></script>
+        <script th:inline="javascript">
+            //注册判断弹窗
+            function r() {
+                var msg =[[${msg}]];
+                if (msg==1){
+                    alert("注册成功！！");
+                }else if (msg==0){
+                    alert("注册失败！！");
+                }
+            };
+        </script>
+    </body>
+</html>

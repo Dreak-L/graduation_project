@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <div th:replace="common :: commontitle"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        
+        <div th:replace="common :: commonhead"></div>
+
+        <!-- plugins -->
+        <link href="assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+
+
+
+    </head>
+
+    <body>
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <div th:replace="common :: commonstart"/>
+
+            <div th:replace="common :: commonleft"></div>
+
+            <!-- ============================================================== -->
+            <!-- Start Page Content here -->
+            <!-- ============================================================== -->
+
+            <div class="content-page">
+                <div class="content">
+                    <div class="container-fluid">
+
+                        <!-- content -->
+                        <div class="row" style="position: relative;top: 50px">
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="media p-3">
+                                            <div class="media-body">
+                                                <span class="text-muted text-uppercase font-size-12 font-weight-bold">医生总数</span>
+                                                <h2 class="mb-0" th:text="${DoctorNum}">$2189</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="media p-3">
+                                            <div class="media-body">
+                                                <span class="text-muted text-uppercase font-size-12 font-weight-bold">注册人数</span>
+                                                <h2 class="mb-0" th:text="${PatientNum}">1065</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="media p-3">
+                                            <div class="media-body">
+                                                <span class="text-muted text-uppercase font-size-12 font-weight-bold">科室总数</span>
+                                                <h2 class="mb-0" th:text="${departmentAllNum}">11</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-xl-3">
+                                <div class="card">
+                                    <div class="card-body p-0">
+                                        <div class="media p-3">
+                                            <div class="media-body">
+                                                <span class="text-muted text-uppercase font-size-12 font-weight-bold">共接诊</span>
+                                                <h2 class="mb-0" th:text="${session.MedicalNum}">750</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="card-title header-title border-bottom p-3 mb-0"  style="position: relative;top: 100px;">医院职位总览</h5>
+
+                        <!-- stats + charts -->
+                        <div class="row" style="position: relative;top: 100px;width:100% ;background-color: #ffffff" >
+                            <div class="col-xl-3">
+                                    <h5 class="card-title header-title border-bottom p-3 mb-0">院长/副院长</h5>
+                                    <!-- stat 1 -->
+                                    <table class="table  mb-0" style="width: 400px">
+                                        <thead >
+                                        <tr>
+                                            <th scope="col" width="100px">姓名 </font></th>
+                                            <th scope="col" width="100px">职位 </font></th>
+                                            <th scope="col" width="100px">科室 </font></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="do:${yuanzhang}">
+                                            <td th:text="${do.username}" > </td>
+                                            <td th:text="${do.userRolename}"></td>
+                                            <td th:text="${do.userDepartname}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+
+                            <div class="col-xl-3" style="position: relative;left: 50px">
+                                <h5 class="card-title header-title border-bottom p-3 mb-0">主任/副主任</h5>
+                                <!-- stat 1 -->
+                                <table class="table  mb-0" style="width: 600px">
+                                    <thead >
+                                    <tr>
+                                        <th scope="col" width="100px">姓名 </font></th>
+                                        <th scope="col" width="100px">职位 </font></th>
+                                        <th scope="col" width="100px">科室 </font></th>
+                                        <th scope="col" width="100px">科室所属 </font></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="do:${zhuren}">
+                                        <td th:text="${do.username}" > </td>
+                                        <td th:text="${do.userRolename}"></td>
+                                        <td th:text="${do.userDepartname}"></td>
+                                        <td th:text="${do.userDepartbelongname}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-xl-3" style="position: relative;left:325px">
+                                <h5 class="card-title header-title border-bottom p-3 mb-0">科长/副科长</h5>
+                                <!-- stat 1 -->
+                                <table class="table mb-0" style="width: 400px">
+                                    <thead >
+                                    <tr>
+                                        <th scope="col" width="100px">姓名 </font></th>
+                                        <th scope="col" width="100px">职位 </font></th>
+                                        <th scope="col" width="100px">科室 </font></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="do:${kezhang}">
+                                        <td th:text="${do.username}" > </td>
+                                        <td th:text="${do.userRolename}"></td>
+                                        <td th:text="${do.userDepartname}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- row -->
+
+
+                    </div>
+                </div> <!-- content -->
+
+                <div th:replace="common :: commonend"></div>
+
+
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- End Page content -->
+            <!-- ============================================================== -->
+
+
+        </div>
+        <!-- END wrapper -->
+
+        <!-- Right Sidebar -->
+
+        <!-- /Right-bar -->
+
+        <!-- Right bar overlay-->
+        <div class="rightbar-overlay"></div>
+
+        <!-- Vendor js -->
+        <script src="assets/js/vendor.min.js"></script>
+
+        <!-- optional plugins -->
+        <script src="assets/libs/moment/moment.min.js"></script>
+        <script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+        <script src="assets/libs/flatpickr/flatpickr.min.js"></script>
+
+        <!-- page js -->
+        <script src="assets/js/pages/dashboard.init.js"></script>
+
+        <!-- App js -->
+        <script src="assets/js/app.min.js"></script>
+
+
+    </body>
+</html>

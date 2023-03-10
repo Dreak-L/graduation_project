@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.graduation_project.Mapper.UserMapper">
+
+<!--    <update id="frontupdateDoctor" parameterType="com.example.graduation_project.Domain.User">-->
+<!--        UPDATE user u,role r SET u.user_rolename = r.RoleName where u.user_roleid = r.roleId,-->
+<!--        UPDATE user u,states s SET u.user_statename = s.statename where u.user_state_id = s.stateid,-->
+<!--        UPDATE user u,department d SET u.user_departname = d.departname where u.user_depart = d.departID;-->
+<!--    </update>-->
+</mapper>

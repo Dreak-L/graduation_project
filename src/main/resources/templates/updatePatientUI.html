@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <div th:replace="common :: commontitle"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+
+    <!-- App css -->
+    <link href="assets/css/bootstrap.min.css" th:href="@{assets/css/bootstrap.min.css}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/icons.min.css" th:href="@{assets/css/icons.min.css}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/app.min.css" th:href="@{assets/css/app.min.css}" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div class="navbar navbar-expand flex-column flex-md-row navbar-custom">
+        <div class="container-fluid">
+            <!-- LOGO -->
+            <a href="patient-index.html" class="navbar-brand mr-0 mr-md-2 logo">
+                            <span class="logo-lg">
+                                <img src="assets/images/favicon.ico" alt="" height="50" />
+                                <span class="d-inline h5 ml-1 text-logo">病历管理系统-患者端</span>
+                            </span>
+                <span class="logo-sm">
+                                <img src="assets/images/favicon.ico" alt="" height="50">
+                            </span>
+            </a>
+
+            <ul class="navbar-nav bd-navbar-nav flex-row list-unstyled menu-left mb-0">
+                <li class="">
+                    <button class="button-menu-mobile open-left disable-btn">
+                        <i data-feather="menu" class="menu-icon"></i>
+                        <i data-feather="x" class="close-icon"></i>
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+    <!-- end Topbar -->
+
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="left-side-menu">
+        <div class="media user-profile mt-2 mb-2">
+            <img src="assets/images/users/avatar-7.jpg" class="avatar-sm rounded-circle mr-2" alt="Shreyu" />
+            <img src="assets/images/users/avatar-7.jpg" class="avatar-xs rounded-circle mr-2" alt="Shreyu" />
+
+            <div class="media-body">
+                <h6 class="pro-user-name mt-0 mb-0">[[${session.loginpatient.patientName}]]</h6>
+                <span class="pro-user-desc">患者</span><span class="pro-user-desc" th:text="${session.loginpatient.patientStateName}">患者</span>
+            </div>
+            <div class="dropdown align-self-center profile-dropdown-menu">
+                <a class="dropdown-toggle mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false"
+                   aria-expanded="false">
+                    <span data-feather="chevron-down"></span>
+                </a>
+                <div class="dropdown-menu profile-dropdown">
+                    <a href="pages-profile.html" class="dropdown-item notify-item">
+                        <i data-feather="user" class="icon-dual icon-xs mr-2"></i>
+                        <span>个人信息</span>
+                    </a>
+
+
+                    <div class="dropdown-divider"></div>
+
+                    <a href="javascript:void(0);" th:href="@{/Logout}" class="dropdown-item notify-item">
+                        <i data-feather="log-out" class="icon-dual icon-xs mr-2"></i>
+                        <span>退出</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <!--- Sidemenu -->
+            <div id="sidebar-menu" class="slimscroll-menu">
+                <ul class="metismenu" id="menu-bar">
+                    <li class="menu-title">导航</li>
+
+                    <li>
+                        <a href="patient-index.html">
+                            <i data-feather="home"></i>
+                            <span> 首页 </span>
+                        </a>
+                    </li>
+                    <li class="menu-title">病历管理</li>
+
+                    <li>
+                        <a href="javascript: void(0);">
+                            <i data-feather="inbox"></i>
+                            <span> 我的病例 </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li>
+                                <a href="email-inbox.html" th:href="@{/findPatientSelfMeical(idcard=${session.loginpatient.patientIdcard},pn=1)}">过往病历</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <!-- End Sidebar -->
+
+            <div class="clearfix"></div>
+        </div>
+        <!-- Sidebar -left -->
+
+    </div>
+    <!-- Left Sidebar End -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+    <div class="content-page">
+        <div class="content" style="position: relative;top: 50px">
+
+            <!-- Start Content-->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title mt-0">修改个人信息</h4>
+                            <p class="sub-header">
+                                请输入要修改的信息！</p>
+
+                            <form class="form-horizontal" method="post" action="/updatePatientInfo">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label"
+                                                   for="simpleinput">患者ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control-plaintext"  name="id" readonly
+                                                       th:value="${patientByid.id}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label"
+                                                   for="simpleinput">姓名</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" id="simpleinput" name="patientName"
+                                                        th:value="${patientByid.patientName}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">身份证号</label>
+                                            <div class="col-lg-10">
+                                                <input th:type="text" class="form-control" type="url" name="patientIdcard" placeholder="请输入患者身份证号" th:value="${patientByid.patientIdcard}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label"
+                                                   for="example-email">账号</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" id="example-email" name="example-email" th:name="patientEmail"
+                                                       class="form-control" placeholder="请输入患者年龄" th:value="${patientByid.patientEmail}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label"
+                                                   for="example-email">密码</label>
+                                            <div class="col-lg-10">
+                                                <input type="text"  name="example-email" th:name="patientPassword"
+                                                       class="form-control" placeholder="请输入患者年龄" th:value="${patientByid.patientPassword}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="col-lg-2 col-form-label">性别</label>
+                                            <div class="col-lg-10">
+                                                <select class="form-control custom-select" name="patientGender">
+                                                    <option th:selected="${patientByid.patientGender==1}" value="1">男</option>
+                                                    <option th:selected="${patientByid.patientGender==0}" value="0">女</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="form-group row" style="height: 100px">
+
+                                        </div>
+
+                                        <div class="form-group mb-0 justify-content-end row">
+                                            <div class="col-9">
+                                                <button type="submit" style="width: 300px" class="btn btn-info">修改</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card-->
+                </div><!-- end col -->
+            </div>
+
+        </div> <!-- content -->
+
+
+
+        <!-- Footer Start -->
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        2022 &copy; graduation By Lsk
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<!-- Vendor js -->
+<script src="assets/js/vendor.min.js"></script>
+
+<!-- App js -->
+<script src="assets/js/app.min.js"></script>
+
+</body>
+
+</html>
